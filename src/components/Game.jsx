@@ -61,21 +61,17 @@ export default function Game() {
         if (hitPlayer === 1) {
             if (player1LeftArmDiff === 30 && player1LeftArmYdiff === 90) {
                 // player1 hit player2 with left arm
-                console.log("P1 HIT LEFT: " + player1.leftArmX, player2.headX);
                 setPlayer1Hit(oldVal => oldVal + 1);
             } else if (player1RitghArmDiff === 30 && player1RightArmYdiff === 65) {
                 // player1 hit player2 with right arm
-                console.log("P1 HIT RIGTH: " + player1.rightArmX, player2.headX);
                 setPlayer1Hit(oldVal => oldVal + 1)
             }
          } else {
             // player 2 hit check
              if (player2RightArmDiff === 50 && player2RightArmYdiff === 15) {
                 // player2 hit player1 with right arm
-                console.log("P2 HIT RIGHT: " + player2.rightArmX, player1.headX);
                 setPlayer2Hit(oldVal => oldVal + 1);
             } else if (player2LeftArmDiff === 50 && player2LeftArmYdiff === 10) {
-                
                 // player2 hit player1 with left arm
                 setPlayer2Hit(oldVal => oldVal + 1);
             }
@@ -241,9 +237,9 @@ export default function Game() {
     
 
     return <section id="game" className="justify-center p-4">
-        <div>
-            <p>P1 HITS: {player1Hit}</p>
-            <p>P2 HITS: {player2Hit}</p>
+        <div className="flex gap-4 p-4">
+            <p><span className="text-2xl font-bold">P1 HITS:</span><span className="text-2xl font-bold bg-blue-400 p-2 rounded-xl">{player1Hit}</span></p>
+            <p><span className="text-2xl font-bold">P2 HITS:</span><span className="text-2xl font-bold bg-red-400 p-2 rounded-xl">{player2Hit}</span></p>
         </div>
         <canvas ref={canvasRef} className="border-solid border-black border-4" width={window.innerWidth - 100}>
 
