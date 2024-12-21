@@ -18,9 +18,13 @@ export default function Game() {
         ctx.fillRect(player1Pos.headX, player1Pos.headY, 50, 25)
         ctx.beginPath();
         ctx.arc(player1Pos.leftArmX, player1Pos.leftArmY , 10, 0, 2*Math.PI)
+        ctx.fillStyle = "blue";
+        ctx.fill();
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(player1Pos.rightArmX, player1Pos.rightArmY, 10, 0, 2*Math.PI)
+        ctx.fillStyle = "blue";
+        ctx.fill();
         ctx.stroke();
     }, [player1Pos])
 
@@ -29,9 +33,13 @@ export default function Game() {
         ctx.fillRect(player2Pos.headX, player2Pos.headY, 50, 25)
         ctx.beginPath();
         ctx.arc(player2Pos.leftArmX, player2Pos.leftArmY , 10, 0, 2*Math.PI)
+        ctx.fillStyle = "red";
+        ctx.fill();
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(player2Pos.rightArmX, player2Pos.rightArmY, 10, 0, 2*Math.PI)
+        ctx.fillStyle = "red";
+        ctx.fill();
         ctx.stroke();
     }, [player2Pos])
 
@@ -236,12 +244,12 @@ export default function Game() {
     }, [player1HitLeft, player2HitLeft, player1HitRight, player2HitRight, player1MoveDown, player1MoveLeft, player1MoveRight, player1MoveUp, player2MoveDown, player2MoveLeft, player2MoveRight, player2MoveUp])
     
 
-    return <section id="game" className="justify-center p-4">
-        <div className="flex gap-4 p-4">
+    return <section id="game" className="grid justify-center p-4">
+        <div className="flex gap-4 p-4 justify-center">
             <p><span className="text-2xl font-bold">P1 HITS:</span><span className="text-2xl font-bold bg-blue-400 p-2 rounded-xl">{player1Hit}</span></p>
             <p><span className="text-2xl font-bold">P2 HITS:</span><span className="text-2xl font-bold bg-red-400 p-2 rounded-xl">{player2Hit}</span></p>
         </div>
-        <canvas ref={canvasRef} className="border-solid border-black border-4" width={window.innerWidth - 100}>
+        <canvas ref={canvasRef} className="border-solid border-black border-4" width={600} height={600}>
 
         </canvas>
         <div className="flex gap-4">
