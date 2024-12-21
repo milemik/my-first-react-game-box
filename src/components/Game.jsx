@@ -12,7 +12,6 @@ export default function Game() {
     const [player1Hit, setPlayer1Hit] = useState(0);
     const [player2Hit, setPlayer2Hit] = useState(0);
 
-
     const drawPlayer1 = useCallback((ctx) => {
         ctx.fillStyle = "black"
         ctx.fillRect(player1Pos.headX, player1Pos.headY, 50, 25)
@@ -250,9 +249,18 @@ export default function Game() {
             <p><span className="text-2xl font-bold">P2 HITS:</span><span className="text-2xl font-bold bg-red-400 p-2 rounded-xl">{player2Hit}</span></p>
         </div>
         <canvas ref={canvasRef} className="border-solid border-black border-4" width={600} height={600}>
-
         </canvas>
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-center p-4">
+            <div>
+                <p className="text-2xl font-bold">Player 1</p>
+                <p>Move: A, D, W, S</p>
+                <p>Hit: E, Q</p>
+            </div>
+            <div>
+                <p className="text-2xl font-bold">Player 2</p>
+                <p>Move: Arrow Up, Arrow Down, Arrow Left, Arrow Right</p>
+                <p>Hit: K, L</p>
+            </div>
         </div>
     </section>
 }
