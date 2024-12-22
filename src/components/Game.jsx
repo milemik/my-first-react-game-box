@@ -58,7 +58,7 @@ export default function Game() {
     }
 
     const checkEndGame = useCallback(() => {
-        const maxPoints = 20;
+        const maxPoints = 19;
         if (player1Hit >= maxPoints) {
             alert("Player 1 wins");
             resetScore();
