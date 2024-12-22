@@ -5,6 +5,9 @@ import { useRef } from "react"
 
 
 export default function Game() {
+    // TODO: Implement the game logic to move back when hit
+    // TODO: Implement logic to play with bot
+    // TODO: implement logic for game over
     const canvasRef = useRef(null);
     const [player1Pos, setPlayer1Pos] = useState({headX: 50, headY:50, leftArmX: 80, leftArmY: 100, rightArmX: 80, rightArmY: 25})
     const [player2Pos, setPlayer2Pos] = useState({headX: 150, headY:50, leftArmX: 170, leftArmY: 100, rightArmX: 170, rightArmY: 25})
@@ -65,22 +68,43 @@ export default function Game() {
         const player2LeftArmDiff = Math.abs(player2.leftArmX - player1.headX);
         const player2LeftArmYdiff = Math.abs(player2.leftArmY - player1.headY);
         // check if player1 hits player2
+        const moveOnHit = 30;
         if (hitPlayer === 1) {
             if (player1LeftArmDiff === 30 && player1LeftArmYdiff === 90) {
                 // player1 hit player2 with left arm
                 setPlayer1Hit(oldVal => oldVal + 1);
+                setTimeout(() => {
+                    setPlayer2Pos(oldVal => {
+                        return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
+                    })
+                }, 200)
             } else if (player1RitghArmDiff === 30 && player1RightArmYdiff === 65) {
                 // player1 hit player2 with right arm
                 setPlayer1Hit(oldVal => oldVal + 1)
+                setTimeout(() => {
+                    setPlayer2Pos(oldVal => {
+                        return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
+                    })
+                }, 200)
             }
          } else {
             // player 2 hit check
              if (player2RightArmDiff === 50 && player2RightArmYdiff === 15) {
                 // player2 hit player1 with right arm
                 setPlayer2Hit(oldVal => oldVal + 1);
+                setTimeout(() => {
+                    setPlayer1Pos(oldVal => {
+                        return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
+                    })
+                }, 200)
             } else if (player2LeftArmDiff === 50 && player2LeftArmYdiff === 10) {
                 // player2 hit player1 with left arm
                 setPlayer2Hit(oldVal => oldVal + 1);
+                setTimeout(() => {
+                    setPlayer1Pos(oldVal => {
+                        return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
+                    })
+                }, 200)
             }
         }
     }
