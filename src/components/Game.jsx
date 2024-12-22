@@ -5,9 +5,7 @@ import { useRef } from "react"
 
 
 export default function Game() {
-    // TODO: Implement the game logic to move back when hit
     // TODO: Implement logic to play with bot
-    // TODO: implement logic for game over
     const canvasRef = useRef(null);
     const [player1Pos, setPlayer1Pos] = useState({headX: 50, headY:50, leftArmX: 80, leftArmY: 100, rightArmX: 80, rightArmY: 25})
     const [player2Pos, setPlayer2Pos] = useState({headX: 150, headY:50, leftArmX: 170, leftArmY: 100, rightArmX: 170, rightArmY: 25})
@@ -60,7 +58,7 @@ export default function Game() {
     }
 
     const checkEndGame = useCallback(() => {
-        const maxPoints = 30;
+        const maxPoints = 20;
         if (player1Hit >= maxPoints) {
             alert("Player 1 wins");
             resetScore();
@@ -134,6 +132,9 @@ export default function Game() {
     // move player 1
     const player1MoveUp = useCallback(() => {
         setPlayer1Pos(oldVal => {
+            if (oldVal.leftArmY < 100) {
+                return oldVal;
+            }
             return {...oldVal, headY: oldVal.headY - 10, leftArmY: oldVal.leftArmY - 10, rightArmY: oldVal.rightArmY - 10}
         })
     }, [])
@@ -142,6 +143,9 @@ export default function Game() {
     // move player 2
     const player2MoveUp = useCallback(() => {
         setPlayer2Pos(oldVal => {
+            if (oldVal.leftArmY < 100) {
+                return oldVal;
+            }
             return {...oldVal, headY: oldVal.headY - 10, leftArmY: oldVal.leftArmY - 10, rightArmY: oldVal.rightArmY - 10}
         })
     }, [])
@@ -149,6 +153,9 @@ export default function Game() {
     // move player 1
     const player1MoveDown = useCallback(() => {
         setPlayer1Pos(oldVal => {
+            if (oldVal.rightArmY > canvasRef.current.height - 100) {
+                return oldVal;
+            }
             return {...oldVal, headY: oldVal.headY + 10, leftArmY: oldVal.leftArmY + 10, rightArmY: oldVal.rightArmY + 10}
         })
     }, [])
@@ -156,6 +163,9 @@ export default function Game() {
     // move player 2
     const player2MoveDown = useCallback(() => {
         setPlayer2Pos(oldVal => {
+            if (oldVal.rightArmY > canvasRef.current.height - 100) {
+                return oldVal;
+            }
             return {...oldVal, headY: oldVal.headY + 10, leftArmY: oldVal.leftArmY + 10, rightArmY: oldVal.rightArmY + 10}
         })
     }, [])
@@ -163,6 +173,9 @@ export default function Game() {
     // move player 1
     const player1MoveLeft = useCallback(() => {
         setPlayer1Pos(oldVal => {
+            if (oldVal.headX > canvasRef.current.width - 70) {
+                return oldVal;
+            }
             return {...oldVal, headX: oldVal.headX + 10, leftArmX: oldVal.leftArmX + 10, rightArmX: oldVal.rightArmX + 10}
         })
     }, [])
@@ -171,6 +184,9 @@ export default function Game() {
     // move player 2
     const player2MoveLeft = useCallback(() => {
         setPlayer2Pos(oldVal => {
+            if (oldVal.headX < 20) {
+                return oldVal;
+            }
             return {...oldVal, headX: oldVal.headX - 10, leftArmX: oldVal.leftArmX - 10, rightArmX: oldVal.rightArmX - 10}
         })
     }, [])
@@ -178,6 +194,9 @@ export default function Game() {
     // move player 1
     const player1MoveRight = useCallback(() =>{ 
         setPlayer1Pos(oldVal => {
+            if (oldVal.headX < 20) {
+                return oldVal;
+            }
             return {...oldVal, headX: oldVal.headX - 10, leftArmX: oldVal.leftArmX - 10, rightArmX: oldVal.rightArmX - 10}
         })
     }, [])
@@ -186,6 +205,9 @@ export default function Game() {
     // move player 2
     const player2MoveRight = useCallback(()  =>{
         setPlayer2Pos(oldVal => {
+            if (oldVal.headX > canvasRef.current.width - 70) {
+                return oldVal;
+            }
             return {...oldVal, headX: oldVal.headX + 10, leftArmX: oldVal.leftArmX + 10, rightArmX: oldVal.rightArmX + 10}
         })
     }, [])
