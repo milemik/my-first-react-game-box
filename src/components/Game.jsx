@@ -54,7 +54,24 @@ export default function Game() {
     },[drawPlayer1, drawPlayer2])
 
 
-    function checkHit(player1, player2, hitPlayer) {
+    function resetScore() {
+        setPlayer1Hit(0);
+        setPlayer2Hit(0);
+    }
+
+    const checkEndGame = useCallback(() => {
+        const maxPoints = 30;
+        if (player1Hit >= maxPoints) {
+            alert("Player 1 wins");
+            resetScore();
+        } else if (player2Hit >= maxPoints) {
+            alert("Player 2 wins");
+            resetScore();
+        }
+    },[player1Hit, player2Hit])
+
+
+    const checkHit = useCallback((player1, player2, hitPlayer) => {
         // Distance between player1 arm and player2 head
         const player1RitghArmDiff = Math.abs(player1.rightArmX - player2.headX);
         const player1RightArmYdiff = Math.abs(player1.rightArmY - player2.headY);
@@ -69,10 +86,12 @@ export default function Game() {
         const player2LeftArmYdiff = Math.abs(player2.leftArmY - player1.headY);
         // check if player1 hits player2
         const moveOnHit = 30;
+
         if (hitPlayer === 1) {
             if (player1LeftArmDiff === 30 && player1LeftArmYdiff === 90) {
                 // player1 hit player2 with left arm
                 setPlayer1Hit(oldVal => oldVal + 1);
+                checkEndGame();
                 setTimeout(() => {
                     setPlayer2Pos(oldVal => {
                         return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
@@ -81,6 +100,7 @@ export default function Game() {
             } else if (player1RitghArmDiff === 30 && player1RightArmYdiff === 65) {
                 // player1 hit player2 with right arm
                 setPlayer1Hit(oldVal => oldVal + 1)
+                checkEndGame();
                 setTimeout(() => {
                     setPlayer2Pos(oldVal => {
                         return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
@@ -92,6 +112,7 @@ export default function Game() {
              if (player2RightArmDiff === 50 && player2RightArmYdiff === 15) {
                 // player2 hit player1 with right arm
                 setPlayer2Hit(oldVal => oldVal + 1);
+                checkEndGame();
                 setTimeout(() => {
                     setPlayer1Pos(oldVal => {
                         return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
@@ -100,6 +121,7 @@ export default function Game() {
             } else if (player2LeftArmDiff === 50 && player2LeftArmYdiff === 10) {
                 // player2 hit player1 with left arm
                 setPlayer2Hit(oldVal => oldVal + 1);
+                checkEndGame();
                 setTimeout(() => {
                     setPlayer1Pos(oldVal => {
                         return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
@@ -107,7 +129,7 @@ export default function Game() {
                 }, 200)
             }
         }
-    }
+    }, [checkEndGame]) 
 
     // move player 1
     const player1MoveUp = useCallback(() => {
@@ -179,7 +201,7 @@ export default function Game() {
         setTimeout(() => {
             setPlayer1Pos(oldVal => {return {...oldVal, leftArmX: oldVal.leftArmX - 30}})    
         }, 100)
-    }, [player2Pos])
+    }, [player2Pos,checkHit])
 
     // player2 hit
     const player2HitLeft = useCallback(() =>{
@@ -191,7 +213,7 @@ export default function Game() {
         setTimeout(() => {
             setPlayer2Pos(oldVal => {return {...oldVal, leftArmX: oldVal.leftArmX + 30}})    
         }, 100)
-    }, [player1Pos])
+    }, [player1Pos, checkHit])
     
     
     // player1 hit
@@ -204,7 +226,7 @@ export default function Game() {
         setTimeout(() => {
             setPlayer1Pos(oldVal => {return {...oldVal, rightArmX: oldVal.rightArmX - 30}})    
         }, 100)
-    }, [player2Pos])
+    }, [player2Pos, checkHit])
 
     // player2 hit
     const player2HitRight = useCallback(() => {
@@ -216,7 +238,7 @@ export default function Game() {
         setTimeout(() => {
             setPlayer2Pos(oldVal => {return {...oldVal, rightArmX: oldVal.rightArmX + 30}})    
         }, 100)
-    }, [player1Pos])
+    }, [player1Pos, checkHit])
 
     useEffect(() => {
         const handleKeyDown = (event) => {
