@@ -92,6 +92,9 @@ export default function Game() {
                 checkEndGame();
                 setTimeout(() => {
                     setPlayer2Pos(oldVal => {
+                        if (oldVal.headX < 0 || oldVal.headY < 0 || oldVal.headX > canvasRef.current.width || oldVal.headY > canvasRef.current.height) {
+                            return oldVal;
+                        }
                         return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
                     })
                 }, 200)
@@ -101,6 +104,9 @@ export default function Game() {
                 checkEndGame();
                 setTimeout(() => {
                     setPlayer2Pos(oldVal => {
+                        if (oldVal.headX < 0 || oldVal.headY < 0 || oldVal.headX > canvasRef.current.width || oldVal.headY > canvasRef.current.height) {
+                            return oldVal;
+                        }
                         return {...oldVal, headX: oldVal.headX + moveOnHit, leftArmX: oldVal.leftArmX + moveOnHit, rightArmX: oldVal.rightArmX + moveOnHit}
                     })
                 }, 200)
@@ -113,6 +119,9 @@ export default function Game() {
                 checkEndGame();
                 setTimeout(() => {
                     setPlayer1Pos(oldVal => {
+                        if (oldVal.headX < 0 || oldVal.headY < 0 || oldVal.headX > canvasRef.current.width || oldVal.headY > canvasRef.current.height) {
+                            return oldVal;
+                        }
                         return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
                     })
                 }, 200)
@@ -122,6 +131,9 @@ export default function Game() {
                 checkEndGame();
                 setTimeout(() => {
                     setPlayer1Pos(oldVal => {
+                        if (oldVal.headX < 0 || oldVal.headY < 0 || oldVal.headX > canvasRef.current.width || oldVal.headY > canvasRef.current.height) {
+                            return oldVal;
+                        }
                         return {...oldVal, headX: oldVal.headX - moveOnHit, leftArmX: oldVal.leftArmX - moveOnHit, rightArmX: oldVal.rightArmX - moveOnHit}
                     })
                 }, 200)
